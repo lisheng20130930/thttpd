@@ -3,7 +3,7 @@
 
 
 /* You should modify your file name here */
-#define LOGFILENAME "thttpd.dat"
+#define LOGFILENAME "thttpd.log"
 
 /* logger level */
 enum{
