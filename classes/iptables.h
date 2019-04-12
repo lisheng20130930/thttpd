@@ -4,7 +4,7 @@
 
 static bool can_access(char *szIp){
 
-	#ifndef WIN32
+	#if 0
 	/* PROTECT IP  check ip for access */
 	/*
 	 *  127.0.0.1

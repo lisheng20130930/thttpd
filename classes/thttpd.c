@@ -46,6 +46,7 @@ static void _node_sendFile(node_t *node, char *pszPathName)
 {
 	node->u.d.total = fileSize(pszPathName);
 	if(node->u.d.total==0){
+		DBGPRINT(EERROR,("[ThttpD] fileSize error\r\n"));
 		node_error(node);
 		return;
 	}
