@@ -15,26 +15,10 @@ OBJ=acceptor.o\
   httpc.o\
   httpd.o\
   libnet.o\
-  msg_pack.o\
-  msgc.o\
-  msgd.o\
-  msgpraser.o\
-  Base64.o\
   buffer.o\
-  cJSON.o\
-  Crc16.o\
-  Des.o\
-  Idmap.o\
   libos.o\
   log.o\
-  Md5.o\
-  Rc4.o\
-  stack.o\
-  timer.o\
-  ttlv.o\
-  Xor.o\
   bootstrap.o\
-  config.o\
   thttpd.o\
   utils.o
   

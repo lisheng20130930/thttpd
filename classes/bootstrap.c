@@ -44,6 +44,7 @@ int main(int argv, char **argc)
             break;
         }
         evnet_loop(g_loop);
+		thttpd_loop(g_loop);
 		g_loop++;
     }
 	thttpd_stop();

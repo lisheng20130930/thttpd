@@ -29,3 +29,16 @@ unsigned int fileSize(char *filename)
 	fclose(fp);
     return (size<0)?0:((unsigned int)size);
 }
+
+
+bool cmmn_isValidURL(char *szURL)
+{
+	//(https://)  (http://) PERFIX
+	if(strlen(szURL)>5
+		&&strstr(szURL,"http")
+		&&(strchr(szURL,'.')||strstr(szURL,"localhost"))
+		&&strstr(szURL,"://")){
+		return true;
+	}
+	return false;
+}

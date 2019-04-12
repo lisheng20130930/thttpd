@@ -335,6 +335,7 @@ void aesocketuint()
 
 void aehostbyname(char *name, char *ipStr, int maxlen)
 {
+	/*
     struct addrinfo *result = NULL;
     getaddrinfo(name, NULL, NULL, &result);
     const struct sockaddr *sa = result->ai_addr;
@@ -348,6 +349,6 @@ void aehostbyname(char *name, char *ipStr, int maxlen)
         default:
             break;
     }
-	freeaddrinfo(result);
+	freeaddrinfo(result); */
 }
 #endif
