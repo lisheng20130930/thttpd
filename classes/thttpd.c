@@ -149,7 +149,7 @@ static void node_handler(node_t *node, int evt, int p1, int p2)
 void thttpd_start()
 {
 	DBGPRINT(EERROR,("[ThttpD] ThttpD_start.....\r\n"));	
-	httpd = httpd_start(node_handler,PORT,MAXCNN,TIMEOUT,0,NULL);
+	httpd = httpd_start(node_handler,sizeof(node_t),PORT,MAXCNN,TIMEOUT,0,NULL);
 }
 
 void thttpd_stop()
