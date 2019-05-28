@@ -3,7 +3,13 @@
 
 
 /* You should modify your file name here */
+
+#if(defined(__IOS__)||defined(__ANDROID__))
+#define LOGFILENAME log_filename("thttpd.log")
+#else
 #define LOGFILENAME "thttpd.log"
+#endif
+
 
 /* logger level */
 enum{

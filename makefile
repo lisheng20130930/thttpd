@@ -2,7 +2,7 @@
 
 TARGET=thttpd
 CC=gcc
-CFLAGS = -c -std=c99
+CFLAGS = -c
 
 VPATH=./:./evnet:./http:./utils:./classes
 INCLUDES = -I"./" -I"./classes" -I"./evnet" -I"./utils"
