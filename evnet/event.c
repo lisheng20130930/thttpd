@@ -192,7 +192,11 @@ static char *aeApiName(void) {
 }
 #endif
 
+#if(defined(WIN32)||defined(__IOS__)||defined(__ANDROID__))
+#define _TIMEOUT_MS  (0)
+#else
 #define _TIMEOUT_MS  (20)
+#endif
 
 aeEventLoop *aeCreateEventLoop(int setsize)
 {
