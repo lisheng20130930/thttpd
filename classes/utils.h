@@ -8,5 +8,7 @@ unsigned int fileSize(char *pszFileName);
 
 bool cmmn_isValidURL(char *szURL);
 
+char* ext2mimetype(char *ext);
+
 
 #endif

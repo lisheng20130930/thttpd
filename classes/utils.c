@@ -42,3 +42,15 @@ bool cmmn_isValidURL(char *szURL)
 	}
 	return false;
 }
+
+
+char *ext2mimetype(char *ext)
+{
+	if(ext&&strstr(ext,"htm")){
+		return "text/html";
+	}
+	if(ext&&strstr(ext,"js")){
+		return "text/javascript";
+	}
+	return "application/octet-stream";
+}
