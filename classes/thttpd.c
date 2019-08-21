@@ -53,7 +53,7 @@ static void _node_sendFile(node_t *node, char *pszPathName)
 	
 	strcpy(node->u.d.pszPathName,pszPathName);
 	
-	sprintf(g_buffer,"HTTP/1.0 200 OK\r\nContent-Type: %s\r\nContent-Length: %u\r\n\r\n",ext2mimetype(strchr(pszPathName,'.')),node->u.d.total);	
+	sprintf(g_buffer,"HTTP/1.0 200 OK\r\nContent-Type: %s\r\nContent-Length: %u\r\n\r\n",ext2mimetype(strrchr(pszPathName,'.')),node->u.d.total);	
 	DBGPRINT(EDEBUG,("[ThttpD] Info: Response-Header=[%s]\r\n",g_buffer));
 	
 	node->u.d.headsize = strlen(g_buffer);
