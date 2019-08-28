@@ -15,11 +15,11 @@ static void sig_handler_cb(int sig)
     {
     case SIGINT:
     case SIGTERM:
-		DBGPRINT(EDEBUG,("[BOOTSTRAP] SIGINT(SIGTERM) Catched\r\n"));
+		DBGPRINT(EDEBUG,("[Trace@BOOTSTRAP] SIGINT(SIGTERM) Catched\r\n"));
         g_SIG = SIGINT;
         break;
     case SIGHUP:
-		DBGPRINT(EDEBUG,("[BOOTSTRAP] SIGHUP Catched\r\n"));
+		DBGPRINT(EDEBUG,("[Trace@BOOTSTRAP] SIGHUP Catched\r\n"));
 		signal(SIGHUP, sig_handler_cb);
         g_SIG = SIGHUP;
         break;
@@ -31,7 +31,7 @@ static void sig_handler_cb(int sig)
 
 int main(int argv, char **argc)
 {
-	DBGPRINT(EERROR,("[BOOTSTRAP] loading..........\r\n"));	
+	DBGPRINT(EERROR,("[Trace@BOOTSTRAP] loading..........\r\n"));	
 	signal(SIGINT, sig_handler_cb);
     signal(SIGTERM, sig_handler_cb);
     signal(SIGHUP, sig_handler_cb);

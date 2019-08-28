@@ -4,7 +4,7 @@ TARGET=thttpd
 CC=gcc
 CFLAGS = -c
 
-VPATH=./:./evnet:./http:./utils:./classes
+VPATH=./:./evnet:./utils:./classes
 INCLUDES = -I"./" -I"./classes" -I"./evnet" -I"./utils"
 OBJ=acceptor.o\
   aesocket.o\

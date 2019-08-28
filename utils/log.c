@@ -15,25 +15,29 @@ static __inline char* log_filename(char *name)
 }
 #endif
 
-char* TimeToStrDateTime(char *strz)
+#define TRACE_HEADER_LEN (35)
+
+char* traceHeader(char *strz, int len)
 {
+	static unsigned int g_lifeCycle = 0;	
     time_t t = time(NULL);
     struct tm *ptm = localtime(&t);
+
+	if(g_lifeCycle==0){
+		g_lifeCycle = geticktime();
+	}
     
-    sprintf(strz,"%04d-%02d-%02d %02d:%02d:%02d",ptm->tm_year+1900, ptm->tm_mon+1,ptm->tm_mday,ptm->tm_hour,ptm->tm_min,ptm->tm_sec);
-    
+    sprintf(strz,"%04d%u@%04d-%02d-%02d %02d:%02d:%02d",len,g_lifeCycle,ptm->tm_year+1900,ptm->tm_mon+1,ptm->tm_mday,ptm->tm_hour,ptm->tm_min,ptm->tm_sec);
+    strz[TRACE_HEADER_LEN-1] = ' ';
     return strz;
 }
 
-static void _dump(const char *strz)
+static void _dump(char *buffer,int size)
 {
     FILE* hFile = NULL;
-    char timeSTR[32] = {0};
-    
     hFile = fopen(LOGFILENAME, "ab+");
     if (NULL != hFile) {
-        fseek(hFile, 0, SEEK_END);
-        fprintf(hFile,"%s %s" ,TimeToStrDateTime(timeSTR), strz);
+        fwrite(buffer,1,size,hFile);
         fclose(hFile);
     }
 }
@@ -42,12 +46,13 @@ void _log(char* pszFormat, ...)
 {        
     static char nPrintableStr[4096] = {0};
     va_list MyList;
-    
-    memset(nPrintableStr, 0x00, 4096);  
-    
+	        
     va_start(MyList, pszFormat);
-    _vsnprintf(nPrintableStr, 4096-1, pszFormat, MyList);
+    _vsnprintf(nPrintableStr+TRACE_HEADER_LEN, 4095-TRACE_HEADER_LEN, pszFormat, MyList);
     va_end(MyList);
+	
+	int len = strlen(nPrintableStr+TRACE_HEADER_LEN);
+	traceHeader((char*)nPrintableStr,len);
 	
 	// printf
 	#ifndef __ANDROID__
@@ -55,5 +60,5 @@ void _log(char* pszFormat, ...)
 	#endif
 
     /* write to file */
-    _dump(nPrintableStr);
+    _dump(nPrintableStr,TRACE_HEADER_LEN+len);
 }
