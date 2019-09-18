@@ -1,9 +1,12 @@
 #include "libos.h"
 #include "evfunclib.h"
 #include "signal.h"
-#include "cconf.h"
 #include "httpd.h"
 #include "thttpd.h"
+
+
+#define MAXCNN		(8000)
+
 
 static int g_loop = 0;
 static int g_SIG = (-1);

@@ -3,7 +3,6 @@
 #include "httpd.h"
 #include "thttpd.h"
 #include "utils.h"
-#include "cconf.h"
 #include "iptables.h"
 
 
@@ -146,7 +145,7 @@ static void node_handler(node_t *node, int evt, int p1, int p2)
 void thttpd_start()
 {
 	DBGPRINT(EERROR,("[Trace@ThttpD] ThttpD_start.....\r\n"));	
-	httpd = httpd_start(node_handler,sizeof(node_t),PORT,MAXCNN,TIMEOUT,0,NULL);
+	httpd = httpd_start(node_handler,sizeof(node_t),PORT,TIMEOUT,0,NULL);
 }
 
 void thttpd_stop()

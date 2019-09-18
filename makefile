@@ -15,6 +15,8 @@ OBJ=acceptor.o\
   httpc.o\
   httpd.o\
   libnet.o\
+  muparser.o\
+  upload.o\
   buffer.o\
   libos.o\
   log.o\

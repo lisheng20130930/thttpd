@@ -163,6 +163,22 @@ SOURCE=..\evnet\libnet.c
 
 SOURCE=..\evnet\libnet.h
 # End Source File
+# Begin Source File
+
+SOURCE=..\evnet\muparser.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\evnet\muparser.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\evnet\upload.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\evnet\upload.h
+# End Source File
 # End Group
 # Begin Group "utils"
 
@@ -199,14 +215,6 @@ SOURCE=..\utils\log.h
 # Begin Source File
 
 SOURCE=..\classes\bootstrap.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\classes\cconf.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\classes\iptables.h
 # End Source File
 # Begin Source File
 
