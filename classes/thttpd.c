@@ -110,6 +110,11 @@ static void node_error(node_t *node)
 static void node_handle(node_t *node)
 {
 	DBGPRINT(EDEBUG,("[Trace@ThttpD] node_handle Enter.\r\n"));
+    if(node->IsFileUpload){        
+        sprintf(g_buffer,"HTTP/1.0 200 OK\r\nContent-Length: 9\r\nConnection: close\r\n\r\n%s",node->req.upload.isComplete?"{success}":"{failure}");
+        node->pfnSend(node,g_buffer,strlen(g_buffer), true);
+        return;
+    }
 	char *path = we_url_path(node->URL);
 	if(path=strstr(path,URL_PREIFX)){
 		node_sendFile(node,path+strlen(URL_PREIFX));		
@@ -121,7 +126,7 @@ static void node_handle(node_t *node)
 static void node_clear(node_t *node)
 {
 	http_parser_init(&node->parser,HTTP_REQUEST);
-	buffer_deinit(&node->buffer);
+	buffer_deinit(&node->req.buffer);
 }
 
 static void node_handler(node_t *node, int evt, int p1, int p2)
