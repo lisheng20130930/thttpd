@@ -61,18 +61,29 @@ static void _node_sendFile(node_t *node, char *pszPathName)
 	node_continue(node);
 }
 
-static char* node_path2Name(char *pszPath)
+static char* node_path2Name(char *path)
 {
-	if(!pszPath||strlen(pszPath)>=FSLEN){
-		DBGPRINT(EERROR,("[Trace@ThttpD] Info: path 2max\r\n"));
-		return NULL;
-	}
-	if(strlen(pszPath)<=2){
-		DBGPRINT(EERROR,("[Trace@ThttpD] Info: path 2less\r\n"));
-		return NULL;
-	}
-	sprintf(g_buffer,"%s/%s",ROOT,pszPath+1);	
-	return g_buffer;
+    char _path[FSLEN] = {0};
+    
+    if(!path||strlen(path)<=2){
+        DBGPRINT(EERROR,("[Trace@HTTPD] Info: too less path\r\n"));
+        return NULL;
+    }
+    // skip query part/fragment
+    char *end = strchr(path,'?');
+    if(!end){
+        end = strchr(path,'#');
+        if(!end){
+            end = path+strlen(path);
+        }
+    }
+    if(end-path>=FSLEN){
+        DBGPRINT(EERROR,("[Trace@HTTPD] Info: path 2max\r\n"));
+        return NULL;
+    }
+    memcpy(_path,path,end-path);
+    sprintf(g_buffer,"%s/%s",ROOT,_path+1);	
+    return g_buffer;
 }
 
 
