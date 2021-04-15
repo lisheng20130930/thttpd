@@ -2,16 +2,6 @@
 #include "config.h"
 
 
-#define URL_PREIFX  "/front"
-
-
-#ifndef WIN32
-#define ROOT        "./web"
-#else
-#define ROOT       "../web"
-#endif
-
-
 #define LN_SIZE (2)
 struct mapper_t g_config[LN_SIZE] = {
 	{"/web","./web"},
