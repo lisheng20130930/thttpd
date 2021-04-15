@@ -22,6 +22,7 @@ OBJ=acceptor.o\
   log.o\
   bootstrap.o\
   thttpd.o\
+  config.o\
   utils.o
   
 
