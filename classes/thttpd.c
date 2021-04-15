@@ -4,9 +4,7 @@
 #include "thttpd.h"
 #include "utils.h"
 #include "iptables.h"
-
-
-#define URL_PREIFX  "/front"
+#include "config.h"
 
 
 #define PORT		(60000)
@@ -15,13 +13,6 @@
 
 #define BUFFLEN		(102400)
 #define FSLEN		(128)
-
-
-#ifndef WIN32
-#define ROOT        "./web"
-#else
-#define ROOT       "../web"
-#endif
 
 
 static char g_buffer[BUFFLEN] = {0};
@@ -61,7 +52,7 @@ static void _node_sendFile(node_t *node, char *pszPathName)
 	node_continue(node);
 }
 
-static char* node_path2Name(char *path)
+static char* node_path2Name(char *root, char *path)
 {
     char _path[FSLEN] = {0};
     
@@ -82,12 +73,16 @@ static char* node_path2Name(char *path)
         return NULL;
     }
     memcpy(_path,path,end-path);
-    sprintf(g_buffer,"%s/%s",ROOT,_path+1);	
+	memset(g_buffer,0x00,256);
+	#ifdef WIN32
+	g_buffer[0] = '.';
+	#endif
+    sprintf(g_buffer+strlen(g_buffer),"%s/%s",root,_path+1);	
     return g_buffer;
 }
 
 
-static void node_sendFile(node_t *node, char *path)
+static void node_sendFile(node_t *node, char *root, char *path)
 {	
 	if(!can_access(getRemoteAddr(node))){
 		DBGPRINT(EERROR,("[Trace@ThttpD] Info: IP prevented\r\n"));
@@ -95,13 +90,7 @@ static void node_sendFile(node_t *node, char *path)
 		return;
 	}
 	
-	if(!strchr(path,'.')){
-		DBGPRINT(EERROR,("[Trace@ThttpD] Info: path .check error\r\n"));
-		node_error(node);
-		return;
-	}
-	
-	char *pszFileName = node_path2Name(path);	
+	char *pszFileName = node_path2Name(root,path);	
 	if(!pszFileName){
 		node_error(node);
 		return;
@@ -127,11 +116,12 @@ static void node_handle(node_t *node)
         return;
     }
 	char *path = we_url_path(node->URL);
-	if(path=strstr(path,URL_PREIFX)){
-		node_sendFile(node,path+strlen(URL_PREIFX));		
-	}else{
+	struct mapper_t *refer = query_by_path(path);
+	if(!refer){
 		node_error(node);
+		return;
 	}
+	node_sendFile(node,refer->root,path+strlen(refer->prefix));
 }
 
 static void node_clear(node_t *node)
