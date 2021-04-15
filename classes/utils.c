@@ -84,6 +84,9 @@ bool cmmn_isValidURL(char *szURL)
 
 char *ext2mimetype(char *ext)
 {
+	if(!ext){ //Default JSON
+		return "application/json";
+	}
 	if(ext&&strstr(ext,"htm")){
 		return "text/html";
 	}
